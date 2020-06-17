@@ -98,7 +98,8 @@ function applyRemoveStyle (vnode: VNode, rm: () => void): void {
   compStyle = getComputedStyle(elm as Element)
   var props = (compStyle as any)['transition-property'].split(', ')
   for (; i < props.length; ++i) {
-    if (applied.indexOf(props[i]) !== -1) amount++
+    const prop = props[i]
+    if (prop === 'all' || applied.indexOf(prop) !== -1) amount++
   }
   (elm as Element).addEventListener('transitionend', function (ev: TransitionEvent) {
     if (ev.target === elm) --amount

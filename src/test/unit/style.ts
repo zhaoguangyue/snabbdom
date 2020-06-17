@@ -153,6 +153,25 @@ describe('style', function () {
       done()
     })
   })
+  it('applies transform as transition `all` on remove', function (done) {
+    var btn = h('button', {
+      style: {
+        transition: 'all 0.1s',
+        remove: { transform: 'translateY(100%)' } as any
+      }
+    }, ['A button'])
+    var vnode1 = h('div.parent', {}, [btn])
+    var vnode2 = h('div.parent', {}, [null])
+    document.body.appendChild(vnode0)
+    patch(vnode0, vnode1)
+    patch(vnode1, vnode2)
+    const button = document.querySelector('button') as HTMLButtonElement
+    assert.notStrictEqual(button, null)
+    button.addEventListener('transitionend', function () {
+      assert.strictEqual(document.querySelector('button'), null)
+      done()
+    })
+  })
   describe('using toVNode()', function () {
     it('handles (ignoring) comment nodes', function () {
       var comment = document.createComment('yolo')

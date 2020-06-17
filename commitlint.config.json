@@ -29,6 +29,7 @@
       "git",
       "package",
       "relic",
+      "style",
       "typescript",
       "vscode"
     ]]
